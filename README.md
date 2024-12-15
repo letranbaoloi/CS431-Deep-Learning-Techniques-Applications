@@ -5,7 +5,7 @@
 </p>
 
 <!-- Title -->
-<h1 align="center"><b>CS431 - Deep Learning Techniques Applications</b></h1>
+<h1 align="center"><b>CS431 - Deep Learning Techniques & Applications</b></h1>
 
 
 
@@ -30,7 +30,7 @@
 
 ## Course information:
 
--   **Course Name:** Deep Learning Techniques Applications
+-   **Course Name:** Deep Learning Techniques & Applications
 -   **Course Code:** CS431
 -   **Semester:** 1
 -   **Year:** 2024 - 2025
