@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="text-center p-3"> Choose suitable image</h1>
+<div class="w-100">
+    <section>
+        <div class="container">
+            <div class="row no-gutters justify-content-around">
+                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-6 bg-image my-2 text-center">
+                    <h2 class="text-center p-1">Reference Image</h2>
+                    <a class="bg-image">
+                        <img class="img-fluid image" src="{{ url_for('get_aws_image', dataset=dataset, image_name=reference_name) }}" alt="Frame overview">
+                    </a>
+                    <div class="text-center center-block w-100 p-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                            <h4>Select the search method</h4>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-upload">
+                                    Search method
+                                </button>
+                            </div>
+                            <div class="col-md-6">
+                            <form method="POST">
+                                <label for="custom_caption"><h4>Press submit button</h4></label>
+                                <input type="hidden" id="custom_image" name='custom_image' value="Giá trị mặc định">
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+                            </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="modal-upload" tabindex="-1" aria-labelledby="modal-upload" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">Choose suitable search method
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-upload" enctype="multipart/form-data" method="POST" action="">
+
+
+                    <div class="form-group mt-3">
+                        <label for="search-method">Search method</label>
+                        <select class="form-control" id="search-method" name="search-method">
+                                    <option>Traditional</option>
+                                    <option>Qdrant</option>
+
+                                </select>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="form-upload" class="btn btn-primary">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

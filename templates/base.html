@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %} Conditioned Image Retrieval App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.dark.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mdb.min.css') }}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <nav class="navbar navbar-expand navbar-light pb-0 pt-1" style="background-color: #ef6c00">
+        <a class="navbar-brand hover-shadow-soft justify-content-start mx-3" href="{{ url_for('model_choice') }}"><b>HOME</b></a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav nav nav-tabs navbar-right">
+                <li class="nav-item mx-1">
+                    <a class="nav-link {% if 'image_retrieval' in request.path %}active{% endif %}" href="{{ url_for('dataset_choice', model='image_retrieval') }}" style="font-size: medium">Image Retrieval</a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link {% if 'text_retrieval' in request.path %}active{% endif %}" href="{{ url_for('dataset_choice', model='text_retrieval') }}" style="font-size: medium">Text Retrieval</a>
+                </li>
+                <li class="nav-item mx-1">
+                    <a class="nav-link {% if 'compose' in request.path %}active{% endif %}" href="{{ url_for('dataset_choice', model='compose') }}" style="font-size: medium">Compose Image Retrieval</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mb-auto">
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+
+        {% block content %} {% endblock %}
+
+    </div>
+
+    <hr>
+    <footer class="mt-auto mb-2">
+        <!-- <hr> -->
+        <div class="text-center">
+            <a class="hover-shadow" href="https://www.micc.unifi.it/" style="color:black">Các kĩ thuật học sâu và ứng dụng - CS431.P11.CLC</a><br>
+            <p style="color:5C9BD9">University of Information Technology</p>
+            <a class="hover-shadow" href="https://www.facebook.com/profile.php?id=100011703815150" style="color:5C9BD9">Huynh Cong Thien</a>,
+            <a class="hover-shadow" href="https://www.facebook.com/letranbaoloi" style="color:5C9BD9lack">Le Tran Bao Loi</a>,
+            <a class="hover-shadow" href="https://www.facebook.com/profile.php?id=100006472204856" style="color:5C9BD9">Nguyen Minh Tri</a>,
+        </div>
+    </footer>
+</body>
+
+</html>

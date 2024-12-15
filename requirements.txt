@@ -1,0 +1,12 @@
+torch==2.5.1
+torchvision==0.20.1
+flask==2.0.2
+werkzeug==2.0.1
+pydantic
+pydantic-settings
+clip
+numpy
+qdrant-client
+tqdm
+boto3
+requests

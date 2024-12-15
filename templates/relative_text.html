@@ -1,0 +1,74 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="text-center p-3"> Choose or insert the relative caption</h1>
+<div class="w-100">
+    <section>
+        <div class="container">
+            <div class="row no-gutters justify-content-around">
+
+                <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5 bg-image text-center align-items-center my-2">
+
+
+                    <ul class="m-0 p-0">
+                        <h2 class="text-center p-1">Choose search method</h2>
+                        <div class="text-center col-12 mb-4">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-upload">
+                                    Search method
+                                </button>
+                        </div>
+                        <div class="text-center center-block w-100 border">
+
+
+                            <h2 class="text-center p-1">Dataset captions</h2>
+                            <form method="POST">
+                                <textarea class='form-control' required="required" style="font-size: large" id='custom_caption' name='custom_caption' rows="3" type="text" placeholder="Insert your caption here">{{reference_name}}</textarea>
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+
+                        </div>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="modal fade" id="modal-upload" tabindex="-1" aria-labelledby="modal-upload" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">Choose suitable search method
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-upload" enctype="multipart/form-data" method="POST" action="">
+
+
+                    <div class="form-group mt-3">
+                        <label for="search-method">Search method</label>
+                        <select class="form-control" id="search-method" name="search-method">
+                                    <option>Traditional</option>
+                                    <option>Qdrant</option> 
+                                </select>
+                    </div>
+                    {% if dataset=="fashionIQ" %}
+                    <div class="form-group mt-3">
+                        <label for="fiq-category">Fashion category</label>
+                        <select class="form-control" id="fiq-category" name="fiq-category">
+                                    <option>dress</option>
+                                    <option>toptee</option>
+                                    <option>shirt</option>
+                                </select>
+                    </div>
+                    {% endif %}
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="form-upload" class="btn btn-primary">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

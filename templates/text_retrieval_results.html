@@ -1,0 +1,140 @@
+{% extends "base.html" %} {% block content %}
+<div class="w-100">
+    <section>
+        <div class="container">
+            <div class="row no-gutters justify-content-around ">
+                <!-- <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5 bg-image text-center justify-self-center my-3">
+                    <h2 class="text-center py-1">Reference Image</h2>
+                    <a class="bg-image">
+                        <img class="img-fluid image" src="{{ url_for('get_image', dataset=dataset, image_name=reference_name) }}" alt="Frame overview">
+                    </a>
+                </div> -->
+
+                <div class="col-xs-11 col-sm-11 col-md-5 col-lg-5 my-3">
+                    <h2 class="text-center py-1">Relative caption</h2>
+                    <h4 class=" text-center border"> Search Method: {{ search_method }}</h4>
+                    <div class="row container p-0 m-0 h-100 w-100">
+                        {#
+                        <div class="col-12 p-0 my-auto">#} {#
+                            <h4 class=" text-center border"> {{ caption }}</h4>#} {# </div>#}
+                        <div class="text-center center-block w-100 border col-12 p-0 my-auto">
+                            <form method="POST">
+                                <textarea class='form-control' required="required" style="font-size: x-large" id='custom_caption' name='custom_caption' rows="3" type="text" placeholder="Insert your caption here">{{ caption }}</textarea> {% if dataset
+                                == "fashionIQ" %}
+                                <div class="text-center col-12 mb-4">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-upload">
+                                            <i>Search method</i>
+                                        </button>
+                                </div>
+                                {% endif %}
+                                <input class="btn btn-primary" type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{% if group_names!="" %} {# show 'Group Results' only in CIRR dataset #}
+<div class="w-100">
+    <section>
+        <div class="container">
+            <div class="row no-gutters justify-content-center">
+                <h1 class="text-center mt-5 mb-3"> Group Results</h1>
+                {% for name in group_names %}
+                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-4 bg-image hover-zoom mb-3">
+                    <a class="bg-image" href="{{ url_for('relative_caption', model=model, dataset=dataset, reference_name=name) }}">
+                                    {% if name == target_name and target_name!="" %}
+                                        <img class="img-fluid image"
+                                             src="{{ url_for('get_aws_image', image_name=name, dim=640, gt='True') }}"
+                                             alt="Frame overview">
+                                    {% elif name != target_name and target_name!="" %}
+                                        <img class="img-fluid image"
+                                             src="{{ url_for('get_aws_image', image_name=name, dim=640, gt='False') }}"
+                                             alt="Frame overview">
+                                    {% else %}
+                                        <img class="img-fluid image"
+                                             src="{{ url_for('get_aws_image', image_name=name, dim=640) }}"
+                                             alt="Frame overview">
+                                    {% endif %}
+                                </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endif %}
+
+
+<div class="w-100">
+    <section>
+        <div class="container">
+            <div class="row no-gutters justify-content-center">
+                <h1 class="text-center mt-5 mb-3 "> Global Results</h1>
+                {% for name in names %}
+                <div class="col-xs-11 col-sm-11 col-md-6 col-lg-4 bg-image hover-zoom mb-3">
+                    <a class="bg-image" href="{{ url_for('relative_caption', model=model, dataset=dataset, reference_name=name) }}">
+                                {% if name == target_name and target_name!="" %}
+                                    <img class="img-fluid image"
+                                         src="{{ url_for('get_aws_image', image_name=name, dim=640, gt='True') }}"
+                                         alt="Frame overview">
+                                {% elif name != target_name and target_name!="" %}
+                                    <img class="img-fluid image"
+                                         src="{{ url_for('get_aws_image', image_name=name, dim=640, gt='False') }}"
+                                         alt="Frame overview">
+                                {% else %}
+                                    <img class="img-fluid image"
+                                         src="{{ url_for('get_aws_image', image_name=name, dim=640) }}"
+                                         alt="Frame overview">
+                                {% endif %}
+                            </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="modal-upload" tabindex="-1" aria-labelledby="modal-upload" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-dark" id="exampleModalLabel">Choose suitable search method
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-upload" enctype="multipart/form-data" method="POST" action="">
+
+
+                    <div class="form-group mt-3">
+                        <label for="search-method">Search method</label>
+                        <select class="form-control" id="search-method" name="search-method">
+                                    <option>Traditional</option>
+                                    <option>Qdrant</option> 
+                                </select>
+                    </div>
+                    {% if dataset=="fashionIQ" %}
+                    <div class="form-group mt-3">
+                        <label for="fiq-category">Fashion category</label>
+                        <select class="form-control" id="fiq-category" name="fiq-category">
+                                    <option>dress</option>
+                                    <option>toptee</option>
+                                    <option>shirt</option>
+                                </select>
+                    </div>
+                    {% endif %}
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="submit" form="form-upload" class="btn btn-primary">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

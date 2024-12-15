@@ -1,0 +1,19 @@
+{% extends "base.html" %} {% block content %}
+<h1 class="text-center p-3"> Choose the reference text on {{ dataset }} dataset</h1>
+<div class="w-100">
+    <section>
+        <div class="row no-gutters justify-content-center">
+
+            {% for caption in names %}
+            <div class="col-xs-11 col-sm-11 col-md-6 col-lg-4 bg-image hover-zoom mb-3" style="border-radius: 5px; border-color: #5C9BD9;">
+                <a class="w-100" href="{{ url_for('relative_caption', model=model, dataset=dataset, reference_name=caption) }}">
+                    <h4 style="color: #5C9BD9" class="text-center w-100 hover-shadow border text-decoration-none py-1 my-4"> {{ caption }}</h4>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+
+{% endblock content %}
